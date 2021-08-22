@@ -37,6 +37,91 @@
             </div>';
         }
 
+        // create Email
+        public function makeInputEmail($LabelText, $ControlName){ // waiting for 2 prams
+            $StickyValue = ""; // The stickyData empty in the begining
+
+            if(isset($this->StickyData[$ControlName])){
+                $StickyValue = $this->StickyData[$ControlName];
+            }
+
+            $ErrorMessage = ""; // The error message will be empty in the begining
+
+            if(isset($this->StickyData[$ControlName])){
+                $ErrorMessage = $this->StickyData[$ControlName];
+            }
+
+            // create HTML
+            $this->HTML.= '<div class="form-group">
+                <label for="' . $ControlName . '">' . $LabelText . '</label>
+                <input type="email" name="' . $ControlName . '" class="form-control" value="' . $StickyValue . '" placeholder="Enter ' . $ControlName . '">
+                <div id="errorMessage">' . $ErrorMessage . '</div>
+            </div>';
+        }
+
+        // create Password
+        public function makePassword($LabelText, $ControlName){ // waiting for 2 prams
+            $StickyValue = ""; // The stickyData empty in the begining
+
+            if(isset($this->StickyData[$ControlName])){
+                $StickyValue = $this->StickyData[$ControlName];
+            }
+
+            $ErrorMessage = ""; // The error message will be empty in the begining
+
+            if(isset($this->StickyData[$ControlName])){
+                $ErrorMessage = $this->StickyData[$ControlName];
+            }
+
+            // create HTML
+            $this->HTML.= '<div class="form-group">
+                <label for="' . $ControlName . '">' . $LabelText . '</label>
+                <input type="password" name="' . $ControlName . '" class="form-control" value="' . $StickyValue . '" placeholder="Enter ' . $ControlName . '">
+                <div id="errorMessage">' . $ErrorMessage . '</div>
+            </div>';
+        }
+
+        // create submit
+        public function makeSubmit($ControlName){
+            $this->HTML.= '<input type="submit" class="btn btn-dark" name="' . $ControlName . '" vlaue="' . $ControlName . '">';
+        }
+
+        // Validation Methods
+        public function checkEmpty($ControlName){
+            $Value = "";
+            if(isset($this->$StickyData[$ControlName]) == TRUE){
+                $Value = $this->$StickyData[$ControlName];
+            }
+
+            if(empty($Value)){
+                $this->ValidationError[$ControlName] = 'Must not be empty';
+            }
+
+        }
+
+        // compare two values
+        public function compare($Control, $Control2){
+            if($this->StickyData[$Control1] != $this->StickyData[$Control2]){
+                $this->ValidationError[$ControlName] = 'Not equal';
+            }
+        }
+
+        // check valid email format
+        public function checkEmail($ControlName){
+            $Value = "";
+            if(isset($this->$StickyData[$ControlName]) == TRUE){
+                $Value = $this->$StickyData[$ControlName];
+            }
+
+            if(!filter_var($Value, FILTER_VALIDATE_EMAIL)){
+                $this->ValidationError[$ControlName] = 'Must be a valid Email';
+            }
+        }
+
+        public function raiseCustomError($Control, $ErrorMessage){
+            $this->ValidationError[$Control] = $ErrorMessage;
+        }
+
     }
     // class Form Ends
 ?>
