@@ -1,6 +1,7 @@
 <?php 
     // class Form Starts
     class Forms{
+        
         private $HTML; // create HTML
         private $StickyData; // array for sticky data
         private $ValidationError; // array for checking errors
