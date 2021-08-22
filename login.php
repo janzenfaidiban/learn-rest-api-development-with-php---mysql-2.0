@@ -21,6 +21,7 @@
                 <!-- App Form Starts -->
                 <div class="h-100 p-5 bg-light border rounded-3 m-top-50 app_form shadow-lg">
                     <h2>Login Here..!</h2>
+                    <hr class="my-4">
                 </div>
                 <!-- App Form Ends -->
 
