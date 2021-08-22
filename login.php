@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Article Hub | Home</title>
+    <title>Article Hub | Login</title>
     <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
@@ -14,16 +14,19 @@
     <?php include'elements/navigation.php'; ?>
     <!-- Navigation Ends -->
 
-    <!-- Jumbotron Starts -->
-    <div class="container m-top-50">
-        <div class="h-100 p-5 bg-light border rounded-3 shadow-lg">
-            <h2>Article Hub</h2>
-            <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both column's content for equal-height.</p>
-            <hr class="my-4">
-            <button class="btn btn-dark" type="button">Get Started</button>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+
+                <!-- App Form Starts -->
+                <div class="h-100 p-5 bg-light border rounded-3 m-top-50 app_form shadow-lg">
+                    <h2>Login Here..!</h2>
+                </div>
+                <!-- App Form Ends -->
+
+            </div>
         </div>
     </div>
-    <!-- Jumbotron Ends -->
 
     <!-- Footer Starts -->
     <footer class="footer">
