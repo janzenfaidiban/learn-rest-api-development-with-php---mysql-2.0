@@ -94,6 +94,36 @@
             return $userinfo;
         }
 
+        // function to check user credentials
+        public function check_user_credentials(){
+            global $database;
+            $this->email = trim(htmlspecialchars(strip_tags($this->email)));
+
+            $sql = "SELECT apiuser_id, firstname, lastname, email, password FROM ". $this->table . "
+                    WHERE email = '" . $database->escape_value($this->email) . "'";
+
+            $result = $database->query($sql);
+            $user_info = $database->fetch_row($result);
+
+            if(!empty($user_info)){
+                // match password
+                $hashed_password = $user_info['password'];
+
+                $password = trim(htmlspecialchars(strip_tags($this->password)));
+
+                $match_password = Bcrypt::checkPassword($password, $hashed_password);
+                
+                if($match_password){
+                    return $user_info;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+
+        }
+
 
     }
     // class Apiusers Ends
