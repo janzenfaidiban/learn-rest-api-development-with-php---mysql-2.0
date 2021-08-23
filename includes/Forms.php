@@ -33,7 +33,7 @@
             // create HTML
             $this->HTML.= '<div class="form-group">
                 <label for="' . $ControlName . '">' . $LabelText . '</label>
-                <input type="text" name="' . $ControlName . '" class="form-control" value="' . $StickyValue . '" placeholder="Enter ' . $ControlName . '">
+                <input type="text" name="' . $ControlName . '" class="form-control mt-2 mb-3" value="' . $StickyValue . '" placeholder="Enter ' . $ControlName . '">
                 <div id="errorMessage">' . $ErrorMessage . '</div>
             </div>';
         }
@@ -55,7 +55,7 @@
             // create HTML
             $this->HTML.= '<div class="form-group">
                 <label for="' . $ControlName . '">' . $LabelText . '</label>
-                <input type="email" name="' . $ControlName . '" class="form-control" value="' . $StickyValue . '" placeholder="Enter ' . $ControlName . '">
+                <input type="email" name="' . $ControlName . '" class="form-control mt-2 mb-3" value="' . $StickyValue . '" placeholder="Enter ' . $ControlName . '">
                 <div id="errorMessage">' . $ErrorMessage . '</div>
             </div>';
         }
@@ -77,14 +77,14 @@
             // create HTML
             $this->HTML.= '<div class="form-group">
                 <label for="' . $ControlName . '">' . $LabelText . '</label>
-                <input type="password" name="' . $ControlName . '" class="form-control" value="' . $StickyValue . '" placeholder="Enter ' . $ControlName . '">
+                <input type="password" name="' . $ControlName . '" class="form-control mt-2 mb-3" value="' . $StickyValue . '" placeholder="Enter ' . $ControlName . '">
                 <div id="errorMessage">' . $ErrorMessage . '</div>
             </div>';
         }
 
         // create submit
         public function makeSubmit($ControlName){
-            $this->HTML.= '<input type="submit" class="btn btn-dark" name="' . $ControlName . '" vlaue="' . $ControlName . '">';
+            $this->HTML.= '<input type="submit" class="btn btn-dark" name="' . $ControlName . '" value="' . $ControlName . '">';
         }
 
         // Validation Methods

@@ -2,9 +2,13 @@
     session_start();
     $ds = DIRECTORY_SEPARATOR;
     $base_dir = realpath(dirname(__FILE__) . $ds . '..' . $ds);
-    require_once("{$base_dir}includes{$ds}Database.php");
-    require_once("{$base_dir}includes{$ds}Bcrypt.php");
-    require_once("{$base_dir}includes{$ds}Helpers.php");
+    // require_once($base_dir);
+    require_once('includes/Database.php');
+    require_once('includes/Bcrypt.php');
+    require_once('includes/Helpers.php');
+    // require_once("{$base_dir}includes{$ds}Database.php");
+    // require_once("{$base_dir}includes{$ds}Bcrypt.php");
+    // require_once("{$base_dir}includes{$ds}Helpers.php");
 
     // class Apiusers Starts
     class Apiusers{

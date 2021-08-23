@@ -1,3 +1,18 @@
+<?php
+    require_once('includes/Forms.php');
+    require_once('models/Apiusers.php');
+    require_once('includes/Helpers.php');
+
+    // making register from
+    $form->form_open('register', 'register_form');
+    $form->makeInput('First Name', 'firstname');
+    $form->makeInput('Last Name', 'lastname');
+    $form->makeInputEmail('Your Email', 'email');
+    $form->makePassword('Enter Password', 'password');
+    $form->makePassword('Confirm Password', 'confirmpassword');
+    $form->makeSubmit('Register');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,6 +37,10 @@
                 <div class="h-100 p-5 bg-light border rounded-3 m-top-50 app_form shadow-lg">
                     <h2>Register Here..!</h2>
                     <hr class="my-4">
+                    <?php 
+                        // Displaying Register Form
+                        echo $form->HTML;
+                    ?>
                 </div>
                 <!-- App Form Ends -->
 
