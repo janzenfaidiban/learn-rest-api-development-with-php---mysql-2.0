@@ -1,51 +1,59 @@
 <?php
-session_start();
 // require_once('../includes/Database.php');
 // require_once('../includes/Bcrypt.php');
-// require_once('../includes/Helper.php');
 
 $ds = DIRECTORY_SEPARATOR;
 $base_dir = realpath(dirname(__FILE__) . $ds . '..') . $ds;
 require_once("{$base_dir}includes{$ds}Database.php");
 require_once("{$base_dir}includes{$ds}Bcrypt.php");
-require_once("{$base_dir}includes{$ds}Helper.php");
 
-class Apiusers{
 
-    private $table = 'apiusers';
+class Users{
 
-    //Apiuser properties
-    public $apiuser_id;
+    private $table = 'users';
+
+    //Users Properties
+    public $user_id;
     public $firstname;
     public $lastname;
     public $email;
     public $password;
-    public $auth_key;
-    public $apiuser_status;
 
     public function __construct(){
 
     }
 
-    //check unique email
-    public function check_email(){
+    //validating user param
+    public function validate_param($value){
+        if(!empty($value)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+     //check unique email
+     public function check_unique_email(){
         global $database;
         $this->email = trim(htmlspecialchars(strip_tags($this->email)));
-        $sql = "SELECT apiuser_id FROM ". $this->table ." WHERE 
+        $sql = "SELECT user_id FROM ". $this->table ." WHERE 
                 email = '".$database->escape_value($this->email)."' ";
         
                 $result = $database->query($sql);
-                $info = $database->fetch_row($result);
+                $UserInfo = $database->fetch_row($result);
 
-                if(empty($info)){
+                if(empty($UserInfo)){
                     return true;
                 }else{
                     return false;
                 }
     }
 
-    //create ApiUser
-    public function create_ApiUser(){
+
+
+    //create User
+    public function create_User(){
         //clean data
         $this->firstname = trim(htmlspecialchars(strip_tags($this->firstname)));
         $this->lastname = trim(htmlspecialchars(strip_tags($this->lastname)));
@@ -55,47 +63,23 @@ class Apiusers{
         //hash the password => return hashed password
         $hashed_password = Bcrypt::hashPassword($this->password);
 
-        //create user Auth_key
-        $normal_key = substr(md5(mt_rand()), 0, 7);
-
-        //hash the key
-        $auth_key = Bcrypt::hashPassword($normal_key);
-
         global $database;
 
-        $sql = "INSERT INTO $this->table (firstname, lastname, email, password, auth_key)
+        $sql = "INSERT INTO $this->table (firstname, lastname, email, password)
                 VALUES ('".$database->escape_value($this->firstname)."',
                         '".$database->escape_value($this->lastname)."',
                         '".$database->escape_value($this->email)."',
-                        '".$database->escape_value($hashed_password)."',
-                        '".$database->escape_value($auth_key)."')";
+                        '".$database->escape_value($hashed_password)."')";
 
                 $user_saved = $database->query($sql);
 
                 if($user_saved){
-                    global $helper;
-                    $helper->Message = 'Registration Successful Login here';
-                    $helper->Location = 'login.php';
-                    $helper->set_flash_message();
+                    return true;
                 }else{
-                    die('Cannot save the user try again later...!');
+                    return false;
                 }
     }
 
-    // public function ApiUserDetails
-    public function get_ApiUserDetails(){
-
-        global $database;
-
-        $this->apiuser_id = intval($this->apiuser_id);
-
-        $sql = "SELECT apiuser_id, firstname, lastname, email, auth_key FROM ". $this->table ."
-                WHERE apiuser_id = '$this->apiuser_id'";
-
-        $result = $database->query($sql);
-        $userinfo = $database->fetch_row($result);
-        return $userinfo;
-    }
 
     // function to check users credentials
     public function check_user_credentials(){
@@ -104,7 +88,7 @@ class Apiusers{
 
         global $database;
 
-        $sql = "SELECT apiuser_id, firstname, lastname, email, password FROM ". $this->table ."
+        $sql = "SELECT user_id, firstname, lastname, email, password FROM ". $this->table ."
         WHERE email = '".$database->escape_value($this->email)."'";
 
         $result = $database->query($sql);
@@ -120,33 +104,32 @@ class Apiusers{
             $match_password = Bcrypt::checkPassword($password, $hashed_password);
 
             if($match_password){
-                return $user_info;
+                return $this->get_UserDetails();
             }else{
                 return false;
             }
         }
     }
+    
 
-    //function to verify user authKey
-    public function verify_AuthKey(){
-        $this->auth_key = trim(htmlspecialchars(strip_tags($this->auth_key)));
+        // public function UserDetails
+        public function get_UserDetails(){
 
-        global $database;
-
-        $sql = "SELECT apiuser_id, firstname, lastname, email, auth_key FROM ". $this->table ."
-        WHERE auth_key = '".$database->escape_value($this->auth_key)."'";
-
-        $result = $database->query($sql);
-        $ApiUserInfo = $database->fetch_row($result);
-
-        if(empty($ApiUserInfo)){
-            return false;
-        }else{
-            return true;
+            global $database;
+    
+            $this->email = trim(htmlspecialchars(strip_tags($this->email)));
+    
+            $sql = "SELECT user_id, firstname, lastname, email FROM ". $this->table ."
+                    WHERE email = '".$database->escape_value($this->email)."'";
+    
+            $result = $database->query($sql);
+            $userinfo = $database->fetch_row($result);
+            return $userinfo;
         }
-    }
 
-}// class Apiusers ends
+} // class Ends
 
 //instance of the class
-$api_user = new Apiusers();
+$user = new Users();
+
+?>
