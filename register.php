@@ -3,6 +3,46 @@
     require_once('models/Apiusers.php');
     require_once('includes/Helpers.php');
 
+    // register Apiuser process
+    if(isset($_POST['Register'])){
+
+        $form->StickyData = $_POST;
+        $form->checkEmpty('firstname');
+        $form->checkEmpty('lastname');
+        $form->checkEmpty('email');
+        $form->checkEmpty('password');
+        $form->checkEmpty('confirmpassword');
+        $form->compare('password', 'confirmpassword');
+
+        // check for unique email
+        $EmailAvailable = $api_user->check_email();
+
+        if($EmailAvailable == FALSE){
+            $form->raiseCustomError('email', 'Email is already in use..!');
+        }
+
+        if($form->valid == true){ // checking if the registration form is free of errors
+            $api_user->firstname    = $_POST['firstname'];
+            $api_user->lastname     = $_POST['lastname'];
+            $api_user->email        = $_POST['email'];
+            $api_user->password     = $_POST['password'];
+
+            // insert user to the database
+            $api_user->create_ApiUser();
+            
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
     // making register from
     $form->form_open('register', 'register_form');
     $form->makeInput('First Name', 'firstname');
