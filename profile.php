@@ -33,6 +33,8 @@ $helper->set_flash_message_Warn();
     $user_info = $api_user->get_ApiUserDetails();
     ?>
 
+    
+
     <p><strong>Name:</strong> <?php echo ucfirst($user_info['firstname']).
     '&nbsp;'.ucfirst($user_info['lastname']);?></p>
     <p><strong>Email:-</strong> <?php echo $user_info['email']; ?></p>
