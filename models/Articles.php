@@ -127,6 +127,22 @@ class Articles {
                 }
     }
 
+    // latest Articles
+    public function get_latest_articles() {
+        global $database;
+
+        $sql = "SELECT articles.article_id, articles.user_id, articles.category_id, articles.article_title,
+                articles.article_body,
+                categories.category_title, users.user_id, users.firstname, suers.lastname
+                FROM ".$this->table."
+                JOIN categories on articles.category_id = categories.category_id
+                JOIN users on suers.user_id = articles.user_id order by articles.article_id desc limit 5";
+
+                $result = $database->query($sql);
+                $articleInfo = $database->fetch_array($result);
+                return $articleInfo;
+    }
+
 }
 // class Articles Ends
 // instance of the class
