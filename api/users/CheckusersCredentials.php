@@ -8,8 +8,6 @@
     include_once '../../models/Apiusers.php';
     include_once '../../models/Users.php';
 
-    
-
     // validate request 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
