@@ -58,6 +58,32 @@ class Articles {
 
     }
 
+    // get user articles
+    public function get_user_article() {
+        $this->article_id = filter_var($this->article_id, FILTER_VALIDATE_INT);
+        $this->user_id = filter_var($this->user_id, FILTER_VALIDATE_INT);
+
+        global $database;
+
+        $sql = "SELECT articles.article_id, articles.user_id, articles.category_id, articles.article_title,
+                articles.article_body,
+                categories.category_title
+                FROM ". $this->table ."
+                JOIN categories on categories.category_id = articles.category_id
+                JOIN users on users.user_id = articles.user_id
+                WHERE articles.article_id = '".$database->escape_value($this->article_id)."' &&
+                articles.user_id = '".$database->escape_value($this->user_id)."'";
+
+                $result = $database->query($sql);
+                
+                $article_info = $database->fetch_row($result);
+                if(!empty($article_info)){
+                    return $article_info;
+                } else {
+                    return false;
+                }
+    }
+
 }
 // class Articles Ends
 ?>
